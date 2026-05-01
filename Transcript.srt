@@ -1,0 +1,1795 @@
+1
+00:00:02,730 --> 00:00:04,337
+Hi,my nameis Sri Kumar and
+
+2
+00:00:04,604 --> 00:00:06,211
+it's my final capstone project named
+
+3
+00:00:06,211 --> 00:00:08,085
+Capstone IQ. So essentially what it is,
+
+4
+00:00:08,085 --> 00:00:09,960
+it's valuation engine that is also mixed
+
+5
+00:00:09,960 --> 00:00:11,834
+with the sentiment analyzer. And then for
+
+6
+00:00:11,834 --> 00:00:13,976
+the third part, which is kind of creative
+
+7
+00:00:13,976 --> 00:00:16,118
+part, you have a stress tester based on
+
+8
+00:00:16,118 --> 00:00:18,260
+those results. So first, if you look at
+
+9
+00:00:18,260 --> 00:00:20,402
+this page, this is the dashboard. So the
+
+10
+00:00:20,402 --> 00:00:22,277
+opening of the website, it's basically a
+
+11
+00:00:22,277 --> 00:00:24,388
+macro dashboard of. The overview of what
+
+12
+00:00:24,388 --> 00:00:26,745
+we're going to look at in the website, it
+
+13
+00:00:26,745 --> 00:00:28,840
+tells you what we have. We have the
+
+14
+00:00:28,840 --> 00:00:30,412
+valuation engine makes for the sentiment
+
+15
+00:00:30,412 --> 00:00:31,983
+analysis and evaluation engine tab, and
+
+16
+00:00:31,983 --> 00:00:33,817
+then we have the scenario test stress
+
+17
+00:00:33,817 --> 00:00:35,650
+tester based on those results and the
+
+18
+00:00:35,650 --> 00:00:37,746
+stress tester tab. It's one thing to note
+
+19
+00:00:37,746 --> 00:00:39,841
+that this was made with AI Disclosure and
+
+20
+00:00:39,841 --> 00:00:41,937
+it also uses the driver plugin and uses
+
+21
+00:00:41,937 --> 00:00:43,770
+LLN APIs from Anthropic Cloud and News.
+
+22
+00:00:43,840 --> 00:00:45,983
+Versus, um, so yeah, so before we get
+
+23
+00:00:45,983 --> 00:00:47,858
+into the launch pipeline, I'm kind of
+
+24
+00:00:47,858 --> 00:00:50,269
+kind of going to talk to you about how
+
+25
+00:00:50,269 --> 00:00:52,413
+this process should be used. So one big
+
+26
+00:00:52,413 --> 00:00:54,288
+limitation of this process is that the
+
+27
+00:00:54,288 --> 00:00:55,627
+data quality model assumptions and
+
+28
+00:00:55,627 --> 00:00:56,967
+compounding errors go across components.
+
+29
+00:00:56,967 --> 00:00:58,842
+So essentially if there's one error in
+
+30
+00:00:58,842 --> 00:01:00,717
+the thing, it'll completely flow down and
+
+31
+00:01:00,717 --> 00:01:03,128
+the errors come from the API. So if your
+
+32
+00:01:03,128 --> 00:01:05,523
+API key isn't fully. And their results
+
+33
+00:01:05,523 --> 00:01:07,048
+you're getting aren't like fully there.
+
+34
+00:01:07,048 --> 00:01:09,082
+The math won't workout. So you have to
+
+35
+00:01:09,082 --> 00:01:11,116
+make sure the data quality is good for
+
+36
+00:01:11,116 --> 00:01:13,404
+the whole start of it. And I'll talk more
+
+37
+00:01:13,404 --> 00:01:15,184
+about the limitations as we get through
+
+38
+00:01:15,184 --> 00:01:17,218
+part by part. So the platform also uses
+
+39
+00:01:17,218 --> 00:01:18,743
+simulated inputs. So the end heuristics
+
+40
+00:01:18,743 --> 00:01:20,268
+are not representative of the total
+
+41
+00:01:20,268 --> 00:01:21,794
+analysis. Yes, there are some assumptions
+
+42
+00:01:21,794 --> 00:01:24,082
+you have to make, and we're going to talk
+
+43
+00:01:24,082 --> 00:01:25,862
+through the numbers that we make with
+
+44
+00:01:25,862 --> 00:01:27,450
+those assumptions. But that is a
+
+45
+00:01:27,450 --> 00:01:29,131
+limitation. This system, you do have to
+
+46
+00:01:29,131 --> 00:01:30,572
+make assumptions. It's not a completely
+
+47
+00:01:30,572 --> 00:01:32,013
+predictive model. So with that being
+
+48
+00:01:32,013 --> 00:01:33,934
+said, I'm kind of going to click this
+
+49
+00:01:33,934 --> 00:01:35,615
+launch pipeline button and it'll take us
+
+50
+00:01:35,615 --> 00:01:37,295
+to this valuation engine. I already have
+
+51
+00:01:37,295 --> 00:01:39,457
+my API key put in. You're going to need
+
+52
+00:01:39,457 --> 00:01:41,377
+an Anthropic API key, but I'm going to
+
+53
+00:01:41,377 --> 00:01:43,298
+just put in the Apple stock ticker. Any
+
+54
+00:01:43,298 --> 00:01:44,979
+stock ticker will work. I'll use Apple.
+
+55
+00:01:44,979 --> 00:01:46,420
+It's a mature company, mature companies.
+
+56
+00:01:46,650 --> 00:01:48,716
+Likely give you a lot of results for
+
+57
+00:01:48,716 --> 00:01:50,523
+online information. So as you see the
+
+58
+00:01:50,523 --> 00:01:52,331
+sentiment signals, we get a lot of
+
+59
+00:01:52,331 --> 00:01:54,138
+results because it is an online company.
+
+60
+00:01:54,138 --> 00:01:56,720
+So at the top I'm just going to walk you
+
+61
+00:01:56,720 --> 00:01:58,527
+through everything we have the Apple the
+
+62
+00:01:58,527 --> 00:02:00,851
+the ticket for it is APL. It gives you
+
+63
+00:02:00,851 --> 00:02:02,917
+what type of industry it's in. It's in
+
+64
+00:02:02,917 --> 00:02:04,208
+the technology and consumer electronics
+
+65
+00:02:04,208 --> 00:02:06,015
+industry and this current share price for
+
+66
+00:02:06,015 --> 00:02:08,076
+it as training. 19811 per share price.
+
+67
+00:02:08,076 --> 00:02:10,507
+Then we're going to go into Section 1.
+
+68
+00:02:10,507 --> 00:02:12,635
+Section 1 is the sentiment signals. So
+
+69
+00:02:12,635 --> 00:02:14,762
+here you see the three different places
+
+70
+00:02:14,762 --> 00:02:17,194
+online where you can get your data from.
+
+71
+00:02:17,194 --> 00:02:19,322
+We chose Reddit X and financial journals.
+
+72
+00:02:19,322 --> 00:02:21,145
+The financial journals are Wall Street
+
+73
+00:02:21,145 --> 00:02:22,969
+journals, Bloomberg and Forbes I believe,
+
+74
+00:02:22,969 --> 00:02:25,400
+and the reason we chose those is simply
+
+75
+00:02:25,400 --> 00:02:27,737
+because there was an API. Me from a
+
+76
+00:02:27,737 --> 00:02:29,479
+program called news source for it and
+
+77
+00:02:29,479 --> 00:02:30,972
+other sources weren't in those new
+
+78
+00:02:30,972 --> 00:02:32,714
+sources. It's a similar reason why we
+
+79
+00:02:32,714 --> 00:02:34,456
+chose accent Reddit. It's because I found
+
+80
+00:02:34,456 --> 00:02:36,696
+an API key for it. You can easily apply
+
+81
+00:02:36,696 --> 00:02:38,936
+your own API key. You get more sources in
+
+82
+00:02:38,936 --> 00:02:41,425
+here If you find a site that I'll give it
+
+83
+00:02:41,425 --> 00:02:43,914
+to you. But for this we did Reddit X and
+
+84
+00:02:43,914 --> 00:02:45,407
+financial journals as mentioned there. So
+
+85
+00:02:45,407 --> 00:02:48,083
+all of those are kind of. Added up to get
+
+86
+00:02:48,083 --> 00:02:50,519
+to what we see on the left is this
+
+87
+00:02:50,519 --> 00:02:52,684
+sentiment score. So the way it works is
+
+88
+00:02:52,684 --> 00:02:54,579
+it tracks the headlines of the news
+
+89
+00:02:54,579 --> 00:02:56,474
+articles that come out on Reddit relating
+
+90
+00:02:56,474 --> 00:02:58,639
+to Apple. So for example, if there's a
+
+91
+00:02:58,639 --> 00:03:00,534
+Reddit post saying ohh, Apple stocks are
+
+92
+00:03:00,534 --> 00:03:01,888
+shockingly decreasing, then the sentiment
+
+93
+00:03:01,888 --> 00:03:04,324
+for that will be marked as a negative on
+
+94
+00:03:04,324 --> 00:03:07,279
+a scale of -1 to 1 and it compounds. All
+
+95
+00:03:07,279 --> 00:03:09,703
+18,200 of them to get an overall view of
+
+96
+00:03:09,703 --> 00:03:11,858
+how the public views these stocks. So one
+
+97
+00:03:11,858 --> 00:03:14,013
+downside to this is there can be false
+
+98
+00:03:14,013 --> 00:03:15,898
+positive and false negatives if if an
+
+99
+00:03:15,898 --> 00:03:17,783
+answer is shocking, shocking is a word
+
+100
+00:03:17,783 --> 00:03:19,399
+that's perceived negative by the AI,
+
+101
+00:03:19,399 --> 00:03:21,554
+right? But shocking can be a good thing.
+
+102
+00:03:21,554 --> 00:03:23,709
+So the AI doesn't know how to distinguish
+
+103
+00:03:23,709 --> 00:03:25,863
+between tone. So you do get some false
+
+104
+00:03:25,863 --> 00:03:27,834
+positives and you do get. And false
+
+105
+00:03:27,834 --> 00:03:29,771
+negatives. So you really have to choose
+
+106
+00:03:29,771 --> 00:03:31,431
+what sources you analyze more carefully.
+
+107
+00:03:31,431 --> 00:03:33,922
+So here is where I'm going to talk about
+
+108
+00:03:33,922 --> 00:03:35,859
+how you can actually edit the weighting
+
+109
+00:03:35,859 --> 00:03:38,074
+of this. So in my opinion, sources like
+
+110
+00:03:38,074 --> 00:03:39,734
+financial journals of Wall Street Journal
+
+111
+00:03:39,734 --> 00:03:41,671
+and Bloomberg are less likely to use
+
+112
+00:03:41,671 --> 00:03:43,332
+coded language that is really, really
+
+113
+00:03:43,332 --> 00:03:44,992
+reactive because while their new sources
+
+114
+00:03:44,992 --> 00:03:46,930
+that someone verifying it's they have to
+
+115
+00:03:46,930 --> 00:03:48,655
+remain more objective. With stuff like
+
+116
+00:03:48,655 --> 00:03:50,144
+Reddit and X are independent researchers
+
+117
+00:03:50,144 --> 00:03:51,881
+so while you get the data quicker,
+
+118
+00:03:51,881 --> 00:03:54,115
+there's not a lot of like accuracy to it
+
+119
+00:03:54,115 --> 00:03:56,100
+because anyone can post anything. So as a
+
+120
+00:03:56,100 --> 00:03:58,582
+result I want to wait X and Twitter a lot
+
+121
+00:03:58,582 --> 00:04:01,466
+less. I'm just going
+
+122
+00:04:01,466 --> 00:04:03,825
+to click on 10% for each. So that's his
+
+123
+00:04:03,825 --> 00:04:06,184
+10 and that's it. It's 8 and 11%. I
+
+124
+00:04:06,184 --> 00:04:08,280
+misclicked. I don't have my mouse on me,
+
+125
+00:04:08,280 --> 00:04:10,639
+but it's going to be 8 and 11%. That's
+
+126
+00:04:10,639 --> 00:04:13,260
+what we're going to use. I think X is a
+
+127
+00:04:13,260 --> 00:04:14,832
+little bit more reliable than Reddit
+
+128
+00:04:14,832 --> 00:04:16,405
+because, well, X does have those
+
+129
+00:04:16,405 --> 00:04:18,239
+community notes that you can see and
+
+130
+00:04:18,239 --> 00:04:20,074
+it'll tell you if there's any information
+
+131
+00:04:20,074 --> 00:04:21,658
+that's blatantly wrong. This Reddit
+
+132
+00:04:21,658 --> 00:04:24,532
+doesn't really have that. So as you saw,
+
+133
+00:04:24,532 --> 00:04:26,687
+the public sentiment score dropped from
+
+134
+00:04:26,687 --> 00:04:28,842
+point 642.59 because we waited financial
+
+135
+00:04:28,842 --> 00:04:31,808
+journals more. And as
+
+136
+00:04:31,808 --> 00:04:34,680
+a result, that .58 went up and now it's
+
+137
+00:04:34,680 --> 00:04:37,232
+getting weighted as more. And so the .65
+
+138
+00:04:37,232 --> 00:04:39,465
+from the Twitter, which was the highest
+
+139
+00:04:39,465 --> 00:04:42,018
+segment is now weighted as less. So your
+
+140
+00:04:42,018 --> 00:04:43,613
+overall public sentiment score will
+
+141
+00:04:43,613 --> 00:04:45,208
+decrease. Apples are pretty mature
+
+142
+00:04:45,208 --> 00:04:47,760
+companies, so there's not a lot of like
+
+143
+00:04:47,760 --> 00:04:50,313
+bad reputations for it. So we'll go with
+
+144
+00:04:50,313 --> 00:04:52,353
+this .59 estimated. Well, we're also in
+
+145
+00:04:52,353 --> 00:04:54,565
+an AI tech boom. There's a lot of AI
+
+146
+00:04:54,565 --> 00:04:56,286
+integration into stuff. So it's a pretty
+
+147
+00:04:56,286 --> 00:04:58,006
+good estimate to say that these tech
+
+148
+00:04:58,006 --> 00:04:59,972
+companies will be going up in the long
+
+149
+00:04:59,972 --> 00:05:02,184
+term. So next we get to the next step,
+
+150
+00:05:02,184 --> 00:05:03,905
+which is the integration engine. And this
+
+151
+00:05:03,905 --> 00:05:05,134
+integration engine actually does change
+
+152
+00:05:05,134 --> 00:05:06,854
+with the public sentiment score and you
+
+153
+00:05:06,854 --> 00:05:09,066
+can modify it over here. So if you were
+
+154
+00:05:09,066 --> 00:05:10,295
+looking earlier, these results changed.
+
+155
+00:05:10,295 --> 00:05:12,573
+So now we have to make. Our base GCF
+
+156
+00:05:12,573 --> 00:05:14,285
+assumption, so this is one of the
+
+157
+00:05:14,285 --> 00:05:15,507
+limitations that I referenced earlier.
+
+158
+00:05:15,507 --> 00:05:17,463
+You do have to make assumptions for these
+
+159
+00:05:17,463 --> 00:05:19,174
+companies because well, you, you do have
+
+160
+00:05:19,174 --> 00:05:20,885
+to assume something if you're trying to
+
+161
+00:05:20,885 --> 00:05:22,841
+make a predictive model. So for our case,
+
+162
+00:05:22,841 --> 00:05:24,797
+we have the three assumptions that we can
+
+163
+00:05:24,797 --> 00:05:26,264
+make. We can change these numbers
+
+164
+00:05:26,264 --> 00:05:27,731
+wherever, but it's your base weighted
+
+165
+00:05:27,731 --> 00:05:29,442
+average cost of capital, your base growth
+
+166
+00:05:29,442 --> 00:05:31,153
+and your terminal growth. So for the
+
+167
+00:05:31,153 --> 00:05:33,255
+numbers that we're going to use. So the
+
+168
+00:05:33,255 --> 00:05:34,858
+base weighted average cost of capital,
+
+169
+00:05:34,858 --> 00:05:37,264
+we're going to choose 8 to 9%. We'll find
+
+170
+00:05:37,264 --> 00:05:39,402
+the middle ground of 8.5%. Why are we
+
+171
+00:05:39,402 --> 00:05:41,006
+picking this? Because well, there's a
+
+172
+00:05:41,006 --> 00:05:43,145
+load of debt to equity ratio for Apple
+
+173
+00:05:43,145 --> 00:05:44,748
+because it's a pretty mature industry.
+
+174
+00:05:44,748 --> 00:05:46,887
+And when you're taking on less debt and
+
+175
+00:05:46,887 --> 00:05:48,491
+you're more equity driven than your
+
+176
+00:05:48,491 --> 00:05:50,094
+overall weighted average cost of capital
+
+177
+00:05:50,094 --> 00:05:52,500
+is going to be lower if you look at.
+
+178
+00:05:52,730 --> 00:05:54,548
+Similar mature industries, it'll say that
+
+179
+00:05:54,548 --> 00:05:57,275
+they range from the range of 8 to 9%.
+
+180
+00:05:57,275 --> 00:05:59,397
+We chose the middle ground of 8.5%.
+
+181
+00:05:59,397 --> 00:06:01,518
+Again, for mature industries, you want to
+
+182
+00:06:01,518 --> 00:06:04,245
+go from 8 to 9 and for faster growing
+
+183
+00:06:04,245 --> 00:06:06,063
+in like preceding revenue companies, you
+
+184
+00:06:06,063 --> 00:06:08,791
+want to go to say 9 to 15%. It
+
+185
+00:06:08,791 --> 00:06:10,912
+also matters about the saturation of the
+
+186
+00:06:10,912 --> 00:06:13,335
+market. I would say the tech. Market is
+
+187
+00:06:13,335 --> 00:06:14,911
+pretty saturated and companies for focus
+
+188
+00:06:14,911 --> 00:06:17,011
+more on long term growth, so they don't
+
+189
+00:06:17,011 --> 00:06:19,637
+take on as much debt. So the 8 to 9%
+
+190
+00:06:19,637 --> 00:06:21,475
+assumption is perfect. And then for base
+
+191
+00:06:21,475 --> 00:06:23,838
+growth, you want to go for between 7 and
+
+192
+00:06:23,838 --> 00:06:25,938
+9% for similar reasons. So we'll go for
+
+193
+00:06:25,938 --> 00:06:28,564
+7%. We're going to go on to the lower end
+
+194
+00:06:28,564 --> 00:06:30,139
+again, mature companies don't focus on
+
+195
+00:06:30,139 --> 00:06:32,240
+short term growth growth as much and they
+
+196
+00:06:32,240 --> 00:06:33,887
+focus on making profits. Shareholder over
+
+197
+00:06:33,887 --> 00:06:35,470
+long term values, so because you're
+
+198
+00:06:35,470 --> 00:06:37,579
+looking at that you want to estimate a
+
+199
+00:06:37,579 --> 00:06:39,426
+lower growth rate because they're not as
+
+200
+00:06:39,426 --> 00:06:41,008
+focused with scaling upward and they're
+
+201
+00:06:41,008 --> 00:06:42,590
+more focused with consistent growth. And
+
+202
+00:06:42,590 --> 00:06:44,964
+then the final one that you want to look
+
+203
+00:06:44,964 --> 00:06:46,810
+at is terminal growth rate. For terminal
+
+204
+00:06:46,810 --> 00:06:49,183
+growth rate, we're going to set it as 2%
+
+205
+00:06:49,183 --> 00:06:51,029
+because 2% is what the market appreciate
+
+206
+00:06:51,029 --> 00:06:53,403
+that over the long term and no matter how
+
+207
+00:06:53,403 --> 00:06:55,183
+mature or. Fast growing your industry is
+
+208
+00:06:55,183 --> 00:06:57,075
+over a 10 year. You'll never beat the
+
+209
+00:06:57,075 --> 00:06:58,731
+market. So 2% is the perfect amount
+
+210
+00:06:58,731 --> 00:07:00,623
+because we're going to say it scales with
+
+211
+00:07:00,623 --> 00:07:02,516
+the economy and then we're going to go
+
+212
+00:07:02,516 --> 00:07:04,408
+and we can edit our sentiment impact. So
+
+213
+00:07:04,408 --> 00:07:05,828
+if you've been looking the effective
+
+214
+00:07:05,828 --> 00:07:07,247
+weighted average cost of capital, the
+
+215
+00:07:07,247 --> 00:07:08,666
+effective growth and terminal growth have
+
+216
+00:07:08,666 --> 00:07:10,795
+all been changing. So if I change it to
+
+217
+00:07:10,795 --> 00:07:12,451
+3.5, you saw all those numbers trickled
+
+218
+00:07:12,451 --> 00:07:13,870
+down completely, you saw the intrinsic
+
+219
+00:07:13,870 --> 00:07:15,957
+value per share. The equity value of the
+
+220
+00:07:15,957 --> 00:07:17,787
+enterprise value change. So I'm going to
+
+221
+00:07:17,787 --> 00:07:20,140
+set it back over to 2%, which is the
+
+222
+00:07:20,140 --> 00:07:22,493
+number we set at. And you see all those
+
+223
+00:07:22,493 --> 00:07:24,323
+numbers readjusting. So then we can look
+
+224
+00:07:24,323 --> 00:07:26,153
+at a sentiment impact. So this is
+
+225
+00:07:26,153 --> 00:07:27,721
+essentially putting how much weighting we
+
+226
+00:07:27,721 --> 00:07:29,813
+have on the sentiment score. For the sake
+
+227
+00:07:29,813 --> 00:07:32,166
+of this, I'm going to say we're going to
+
+228
+00:07:32,166 --> 00:07:33,996
+put a 35% estimate because I think
+
+229
+00:07:33,996 --> 00:07:35,587
+companies like Apple. Which are mature
+
+230
+00:07:35,587 --> 00:07:37,307
+are a lot less reactive to public
+
+231
+00:07:37,307 --> 00:07:38,536
+sentiment because they're they're pretty
+
+232
+00:07:38,536 --> 00:07:40,747
+safe, they're in a lot of ETF. So you
+
+233
+00:07:40,747 --> 00:07:42,467
+know that you're focused on long term
+
+234
+00:07:42,467 --> 00:07:43,941
+growth rate and not effective changing.
+
+235
+00:07:43,941 --> 00:07:45,907
+So we don't need to estimate that the
+
+236
+00:07:45,907 --> 00:07:47,873
+sentiment is going to change the value of
+
+237
+00:07:47,873 --> 00:07:49,839
+the stock too much. So we're going to
+
+238
+00:07:49,839 --> 00:07:51,804
+keep it at 35% because it still does
+
+239
+00:07:51,804 --> 00:07:53,770
+affect it, but it doesn't affect as much
+
+240
+00:07:53,770 --> 00:07:56,743
+as if it was a preceded company. So
+
+241
+00:07:56,743 --> 00:07:58,725
+now we see that the effective weighted
+
+242
+00:07:58,725 --> 00:08:00,140
+average cost craft growth, internal
+
+243
+00:08:00,140 --> 00:08:02,122
+growth have changed and below here we
+
+244
+00:08:02,122 --> 00:08:04,386
+tells you the adjustments. So for for all
+
+245
+00:08:04,386 --> 00:08:06,651
+the assumptions that we made, it's a -,
+
+246
+00:08:06,651 --> 00:08:08,633
+8.41 is absent for effective growth at
+
+247
+00:08:08,633 --> 00:08:10,898
+the plus 8.62 and for terminal growth is
+
+248
+00:08:10,898 --> 00:08:13,445
+a + 8.21 and then you get these weighted
+
+249
+00:08:13,445 --> 00:08:15,144
+average cost of capital growth and
+
+250
+00:08:15,144 --> 00:08:16,738
+terminal growth. From your sentiment
+
+251
+00:08:16,738 --> 00:08:18,453
+analyzer and your integrated engine, and
+
+252
+00:08:18,453 --> 00:08:20,455
+these are the values that are actually
+
+253
+00:08:20,455 --> 00:08:22,456
+pitched into the how the whole thing
+
+254
+00:08:22,456 --> 00:08:24,743
+works. So then it trickles down into this
+
+255
+00:08:24,743 --> 00:08:26,745
+valuation output. So as you've seen, it's
+
+256
+00:08:26,745 --> 00:08:28,460
+a pretty steadily stream. Your inputs
+
+257
+00:08:28,460 --> 00:08:30,462
+from public sentiment are put into the
+
+258
+00:08:30,462 --> 00:08:32,177
+integration engine and those inputs then
+
+259
+00:08:32,177 --> 00:08:34,179
+trickle down to the valuation output is
+
+260
+00:08:34,179 --> 00:08:36,829
+what we kind of look at these. You know
+
+261
+00:08:36,829 --> 00:08:39,432
+product. So you see in this black box, it
+
+262
+00:08:39,432 --> 00:08:42,036
+kind of shows you all the numbers that we
+
+263
+00:08:42,036 --> 00:08:44,061
+really need. It tells you the present
+
+264
+00:08:44,061 --> 00:08:45,796
+value, your financial cash flows, your
+
+265
+00:08:45,796 --> 00:08:47,532
+terminal value and it calculates that
+
+266
+00:08:47,532 --> 00:08:49,268
+into your enterprise value, your equity
+
+267
+00:08:49,268 --> 00:08:50,714
+value and everything that's displayed
+
+268
+00:08:50,714 --> 00:08:52,450
+down there. These numbers are just
+
+269
+00:08:52,450 --> 00:08:54,186
+calculated with the the normal present
+
+270
+00:08:54,186 --> 00:08:55,921
+value formulas for financial cash flows
+
+271
+00:08:55,921 --> 00:08:57,755
+for terminal. Value it just all
+
+272
+00:08:57,755 --> 00:08:59,236
+automatically calculating that off the
+
+273
+00:08:59,236 --> 00:09:01,606
+assumptions that we have up here. So then
+
+274
+00:09:01,606 --> 00:09:03,976
+you get your final results, right. So it
+
+275
+00:09:03,976 --> 00:09:06,049
+tells you that it's trading at $155.45
+
+276
+00:09:06,049 --> 00:09:08,123
+per share and that's your intrinsic value
+
+277
+00:09:08,123 --> 00:09:10,493
+per share. And it also tells you your
+
+278
+00:09:10,493 --> 00:09:12,270
+enterprise value. That's the total of
+
+279
+00:09:12,270 --> 00:09:14,048
+financial cash flows and terminal value
+
+280
+00:09:14,048 --> 00:09:16,418
+and it tells you the equity value which
+
+281
+00:09:16,418 --> 00:09:18,913
+is your. TV of plus cash minus debt
+
+282
+00:09:18,913 --> 00:09:20,725
+essentially like how much total money
+
+283
+00:09:20,725 --> 00:09:23,142
+you're actually taking on so all of this
+
+284
+00:09:23,142 --> 00:09:25,559
+tells you like how the sentiment of the
+
+285
+00:09:25,559 --> 00:09:27,372
+public and what assumptions you're making
+
+286
+00:09:27,372 --> 00:09:29,185
+actually shows you the difference between
+
+287
+00:09:29,185 --> 00:09:31,602
+the true value of the stock and stock
+
+288
+00:09:31,602 --> 00:09:34,019
+that you're buying right now so Apple is
+
+289
+00:09:34,019 --> 00:09:36,436
+actually had $198 right now but your true
+
+290
+00:09:36,436 --> 00:09:38,652
+value because. Public sentiment on it is
+
+291
+00:09:38,652 --> 00:09:41,410
+like due to an AI tech boom and we're
+
+292
+00:09:41,410 --> 00:09:43,862
+saying that that's going to fizzle out in
+
+293
+00:09:43,862 --> 00:09:46,007
+the short term. So our terminal growth
+
+294
+00:09:46,007 --> 00:09:48,459
+rate is low is we actually only predict
+
+295
+00:09:48,459 --> 00:09:51,217
+it to be $155 of value right now. And
+
+296
+00:09:51,217 --> 00:09:53,975
+this is kind of displayed if you want a
+
+297
+00:09:53,975 --> 00:09:55,814
+whole table and there's 2D sentiment
+
+298
+00:09:55,814 --> 00:09:57,486
+analysis, sensitivity analysis where. It
+
+299
+00:09:57,486 --> 00:09:59,487
+plots weighted average cost of capital by
+
+300
+00:09:59,487 --> 00:10:02,060
+growth. So you can look at a range of
+
+301
+00:10:02,060 --> 00:10:04,061
+weighted average cost of capital of ±2
+
+302
+00:10:04,061 --> 00:10:06,633
+and a growth range of ±2, two. So right
+
+303
+00:10:06,633 --> 00:10:08,920
+now we're looking at 8.1 and 7.6. That's
+
+304
+00:10:08,920 --> 00:10:11,779
+how we get the $155. But it gives you the
+
+305
+00:10:11,779 --> 00:10:14,066
+entire range. And this is kind of shown
+
+306
+00:10:14,066 --> 00:10:16,352
+that shows you like how much can you
+
+307
+00:10:16,352 --> 00:10:18,069
+actually value your?Company because if
+
+308
+00:10:18,069 --> 00:10:20,438
+you look at it over here, you see that
+
+309
+00:10:20,438 --> 00:10:22,017
+there's really only like really bullish
+
+310
+00:10:22,017 --> 00:10:23,859
+stuff that your company is positive in.
+
+311
+00:10:23,859 --> 00:10:25,964
+But the majority of cases, safe cases, we
+
+312
+00:10:25,964 --> 00:10:28,069
+would say from 7.1% to 10.1% in your
+
+313
+00:10:28,069 --> 00:10:29,648
+weighted average cost of capital, which
+
+314
+00:10:29,648 --> 00:10:31,491
+is what you would consider a normal
+
+315
+00:10:31,491 --> 00:10:33,333
+market or a recession market. You see
+
+316
+00:10:33,333 --> 00:10:35,175
+that you're actually read all over, which
+
+317
+00:10:35,175 --> 00:10:37,017
+means you can kind of make these
+
+318
+00:10:37,017 --> 00:10:39,292
+assumptions. This is not the best stock
+
+319
+00:10:39,292 --> 00:10:41,854
+to invest in, and we did that by
+
+320
+00:10:41,854 --> 00:10:43,776
+compiling both the sentiment signal and
+
+321
+00:10:43,776 --> 00:10:46,019
+the valuation outputs. Then you can look
+
+322
+00:10:46,019 --> 00:10:48,901
+at all of those results in this AI stress
+
+323
+00:10:48,901 --> 00:10:51,464
+tester. So again, it's going to have to
+
+324
+00:10:51,464 --> 00:10:53,706
+load everything back up out here. It's
+
+325
+00:10:53,706 --> 00:10:56,269
+going to take a few seconds. It's just
+
+326
+00:10:56,269 --> 00:10:58,475
+taking all the data. From those, yeah,
+
+327
+00:10:58,475 --> 00:11:00,980
+and it's giving you the base case, the AI
+
+328
+00:11:00,980 --> 00:11:02,372
+tech broom, macro recession, high
+
+329
+00:11:02,372 --> 00:11:04,042
+inflation stock to get through the
+
+330
+00:11:04,042 --> 00:11:05,990
+intrinsic value of the stock. So right
+
+331
+00:11:05,990 --> 00:11:08,217
+now we're looking at the base case of
+
+332
+00:11:08,217 --> 00:11:10,443
+Apple. So these are all the inputs that
+
+333
+00:11:10,443 --> 00:11:12,948
+we got last time. So our stress whack is
+
+334
+00:11:12,948 --> 00:11:14,618
+0.1%, strength grows 0.1%, and stress
+
+335
+00:11:14,618 --> 00:11:16,288
+sentiment is 0.62%. All these were
+
+336
+00:11:16,288 --> 00:11:18,043
+calculated in the valuation engine. Have
+
+337
+00:11:18,043 --> 00:11:19,799
+when you change those results, these
+
+338
+00:11:19,799 --> 00:11:22,141
+results will change. Now we can look at
+
+339
+00:11:22,141 --> 00:11:24,483
+the different cases. So the way away we
+
+340
+00:11:24,483 --> 00:11:26,240
+assumed tech boom, macro recession, high
+
+341
+00:11:26,240 --> 00:11:28,289
+inflation shock, and there's a boom. You
+
+342
+00:11:28,289 --> 00:11:30,631
+assume the markets going up. So it's +6
+
+343
+00:11:30,631 --> 00:11:32,973
+on your plus .6 on your estimate -1.5
+
+344
+00:11:32,973 --> 00:11:35,022
+billion you're stressed wash and plus 3%
+
+345
+00:11:35,022 --> 00:11:37,364
+on your stress growth. These are all just
+
+346
+00:11:37,364 --> 00:11:39,360
+market averages. I looked up tech market
+
+347
+00:11:39,360 --> 00:11:40,690
+average growth for sentiments, stressed
+
+348
+00:11:40,690 --> 00:11:42,818
+walk, and stress growth for each of the
+
+349
+00:11:42,818 --> 00:11:44,679
+three sectors. I just took the results
+
+350
+00:11:44,679 --> 00:11:47,073
+off of local. You can also edit these as
+
+351
+00:11:47,073 --> 00:11:49,201
+you would want in the code. Same with
+
+352
+00:11:49,201 --> 00:11:51,329
+macro recession. It's -0.8% + 2.5% -, 4%.
+
+353
+00:11:51,329 --> 00:11:53,191
+Again, these are just numbers that were
+
+354
+00:11:53,191 --> 00:11:55,584
+out there. I think it was Forbes that I
+
+355
+00:11:55,584 --> 00:11:57,712
+looked up and these were the numbers that
+
+356
+00:11:57,712 --> 00:11:59,949
+they gave you. And then you have all
+
+357
+00:11:59,949 --> 00:12:01,767
+those for the high inflation stock as
+
+358
+00:12:01,767 --> 00:12:03,585
+well, right? And so essentially this guy
+
+359
+00:12:03,585 --> 00:12:05,663
+that gives you the margin of safety on
+
+360
+00:12:05,663 --> 00:12:07,481
+what you're actually betting on when you
+
+361
+00:12:07,481 --> 00:12:09,819
+invest in a stock. So if we assume the
+
+362
+00:12:09,819 --> 00:12:12,156
+boom like we are right now, we see our
+
+363
+00:12:12,156 --> 00:12:13,715
+intrinsic value is 202.85. And that's
+
+364
+00:12:13,715 --> 00:12:15,533
+actually pretty bad value because even in
+
+365
+00:12:15,533 --> 00:12:17,092
+the boom, absolutely massive boom, you're
+
+366
+00:12:17,092 --> 00:12:19,283
+only going to be trading this. Back at
+
+367
+00:12:19,283 --> 00:12:21,534
+$4.00 over what it is right now, you're
+
+368
+00:12:21,534 --> 00:12:23,503
+assuming best case scenario, we only see
+
+369
+00:12:23,503 --> 00:12:25,754
+it's $4.00 value based off of the public
+
+370
+00:12:25,754 --> 00:12:27,442
+sentiment and the valuation engine with
+
+371
+00:12:27,442 --> 00:12:29,130
+the inputs that we made earlier.
+
+372
+00:12:29,130 --> 00:12:30,818
+Similarly for macro recession, you see
+
+373
+00:12:30,818 --> 00:12:32,788
+that your intrinsic value is like really,
+
+374
+00:12:32,788 --> 00:12:35,038
+really bad. You're going to be losing a
+
+375
+00:12:35,038 --> 00:12:37,289
+lot of money long term in this high
+
+376
+00:12:37,289 --> 00:12:38,977
+inflation shock. You're going to be
+
+377
+00:12:38,977 --> 00:12:40,787
+losing 777. Dollars per share, the only
+
+378
+00:12:40,787 --> 00:12:42,906
+one that was kind of good in a recession,
+
+379
+00:12:42,906 --> 00:12:44,554
+mature stocks are the one that thrives.
+
+380
+00:12:44,554 --> 00:12:46,438
+So that's why you saw Apple was doing
+
+381
+00:12:46,438 --> 00:12:48,321
+pretty good there. But you see there's no
+
+382
+00:12:48,321 --> 00:12:49,734
+reason real reason to trade into
+
+383
+00:12:49,734 --> 00:12:51,147
+something like Apple according to this,
+
+384
+00:12:51,147 --> 00:12:52,559
+because despite the sentiment being good,
+
+385
+00:12:52,559 --> 00:12:53,972
+you're really just investing in something
+
+386
+00:12:53,972 --> 00:12:55,620
+super long term because it won't ever
+
+387
+00:12:55,620 --> 00:12:57,504
+like bounce up in the short term because
+
+388
+00:12:57,504 --> 00:12:59,387
+it's a mature industry. So now I'm going
+
+389
+00:12:59,387 --> 00:13:01,153
+to head back over to the. Valuation
+
+390
+00:13:01,153 --> 00:13:02,854
+engine and talked about like some
+
+391
+00:13:02,854 --> 00:13:04,837
+application of this. So I believe I've
+
+392
+00:13:04,837 --> 00:13:06,538
+walked through the tickers and I've
+
+393
+00:13:06,538 --> 00:13:08,238
+already talked about the limitations of
+
+394
+00:13:08,238 --> 00:13:10,505
+this. So now let's talk about how a
+
+395
+00:13:10,505 --> 00:13:11,922
+professional would use something like
+
+396
+00:13:11,922 --> 00:13:13,622
+this using something like Apple. They
+
+397
+00:13:13,622 --> 00:13:15,889
+would use this to essentially make a high
+
+398
+00:13:15,889 --> 00:13:18,440
+and low of the market. So maybe, maybe we
+
+399
+00:13:18,440 --> 00:13:21,362
+only want to go off of what X says. So
+
+400
+00:13:21,362 --> 00:13:23,447
+we get this 0.63 number where we value X
+
+401
+00:13:23,447 --> 00:13:25,301
+super highly and X is telling me that
+
+402
+00:13:25,301 --> 00:13:27,386
+it's going to go up a lot. So a
+
+403
+00:13:27,386 --> 00:13:29,008
+professional would then look at this and
+
+404
+00:13:29,008 --> 00:13:31,094
+say, ohh, my, maybe I'll put my base wack
+
+405
+00:13:31,094 --> 00:13:33,411
+at 7% because I don't need to take on or
+
+406
+00:13:33,411 --> 00:13:35,265
+10 percent, 10 to 7% because we're going
+
+407
+00:13:35,265 --> 00:13:37,350
+to take on more debt because we want to
+
+408
+00:13:37,350 --> 00:13:38,741
+aggressively go right now. Our brains
+
+409
+00:13:38,741 --> 00:13:40,826
+growth rate is going to be higher in our
+
+410
+00:13:40,826 --> 00:13:42,448
+terminal growth rate is going to be
+
+411
+00:13:42,448 --> 00:13:44,225
+higher. And now you actually see all
+
+412
+00:13:44,225 --> 00:13:46,031
+these numbers are going up a lot. And
+
+413
+00:13:46,031 --> 00:13:48,063
+it's telling you that even in a best case
+
+414
+00:13:48,063 --> 00:13:49,644
+scenario where you assume that Apple is
+
+415
+00:13:49,644 --> 00:13:50,999
+going for absolute growth, your intrinsic
+
+416
+00:13:50,999 --> 00:13:53,031
+value for share is pretty low. And if you
+
+417
+00:13:53,031 --> 00:13:54,386
+remembered earlier, I showed you the
+
+418
+00:13:54,386 --> 00:13:56,192
+example of what if we assumed Apple is
+
+419
+00:13:56,192 --> 00:13:57,773
+going to go with this mature strategy
+
+420
+00:13:57,773 --> 00:13:59,579
+that they've been going over for the past
+
+421
+00:13:59,579 --> 00:14:01,385
+20 years and we saw that the intrinsic
+
+422
+00:14:01,385 --> 00:14:03,375
+value per share was down there. So this
+
+423
+00:14:03,375 --> 00:14:05,356
+kind of shows the example of how an
+
+424
+00:14:05,356 --> 00:14:06,842
+industry professional can use it. They
+
+425
+00:14:06,842 --> 00:14:08,823
+can create the low end of the segment,
+
+426
+00:14:08,823 --> 00:14:10,803
+the high end of segment and just using
+
+427
+00:14:10,803 --> 00:14:12,537
+the assumption of how the market will
+
+428
+00:14:12,537 --> 00:14:14,517
+grow based off of other factors that they
+
+429
+00:14:14,517 --> 00:14:15,755
+know because they're an industry
+
+430
+00:14:15,755 --> 00:14:17,489
+professional, they can see whether or not
+
+431
+00:14:17,489 --> 00:14:19,470
+you would actually want to buy this stock
+
+432
+00:14:19,470 --> 00:14:22,425
+for long term value. So that's
+
+433
+00:14:22,425 --> 00:14:24,542
+pretty much how the whole thing works.
+
+434
+00:14:24,542 --> 00:14:26,659
+Um, it's an integrated system. Again, I'm
+
+435
+00:14:26,659 --> 00:14:29,078
+just going to recap it. So using these
+
+436
+00:14:29,078 --> 00:14:31,195
+sentiment signals, you see that all the
+
+437
+00:14:31,195 --> 00:14:32,707
+values change whenever you change
+
+438
+00:14:32,707 --> 00:14:35,127
+anything in here. Same with the beta base
+
+439
+00:14:35,127 --> 00:14:36,941
+whack your sentiment impact when you
+
+440
+00:14:36,941 --> 00:14:39,058
+change all of these, it's trickles down
+
+441
+00:14:39,058 --> 00:14:41,175
+through the entire program and it changes
+
+442
+00:14:41,175 --> 00:14:43,150
+all your. Values. So that's the big
+
+443
+00:14:43,150 --> 00:14:44,710
+limitation that we've talked about is
+
+444
+00:14:44,710 --> 00:14:47,050
+that if you got one thing wrong with your
+
+445
+00:14:47,050 --> 00:14:48,870
+whack, if your assumption is wrong, then
+
+446
+00:14:48,870 --> 00:14:51,210
+all of your future inputs are going to be
+
+447
+00:14:51,210 --> 00:14:52,770
+wrong because, well, it's essentially a
+
+448
+00:14:52,770 --> 00:14:54,590
+program that does all the tracking for
+
+449
+00:14:54,590 --> 00:14:55,747
+you. But yeah, that kind
