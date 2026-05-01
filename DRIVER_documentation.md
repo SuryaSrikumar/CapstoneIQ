@@ -1,71 +1,36 @@
 # DRIVER Methodology Documentation
 
-This document outlines how the **DRIVER** framework (Define, Research, Ideate, Validate, Execute, Reflect) was comprehensively applied to the development of **CapstoneIQ**, an Integrated Finance Application.
+This document outlines how the **DRIVER** workflow was comprehensively applied to the development of **CapstoneIQ**, an Integrated Finance Application.
+
+## Tools Used
+- **Antigravity (Gemini 3.1 Pro)**: Acted as the primary autonomous pair programmer, generating the Next.js frontend code, component architecture, and the Tailwind CSS styling.
+- **Anthropic Claude API**: Acted as the simulated backend data provider, feeding both financial inputs and sentiment scores into the pipeline.
+- **DRIVER Plugin**: Structured the workflow and iterative prompting sequence utilized to guide the AI.
 
 ---
 
-## 1. Define (D)
+## DRIVER Workflow
+
+### 1. `/driver:define` (Define)
 **Project Goal:** 
-The primary objective was to engineer a unified, full-stack financial application that seamlessly integrates two distinct prior projects: a Discounted Cash Flow (DCF) Valuation Engine (Project 1) and a multi-source Market Sentiment Analyzer (Project 2). The goal was to strictly satisfy the "Pattern B" requirement of the Capstone Rubric, which mandates that qualitative sentiment data must programmatically influence quantitative valuation metrics.
+The primary objective was to engineer a unified, full-stack financial application that seamlessly integrates two distinct prior projects: a Discounted Cash Flow (DCF) Valuation Engine and a Sentiment Analyzer. 
+Using the `/driver:define` command, I defined the system boundaries and constraints: The system must explicitly and visually trace how a change in qualitative market sentiment shifts the quantitative Base WACC and Terminal Growth Rate, ultimately altering the Intrinsic Value. I prompted the AI to design an "Integration Pipeline UI" where the user can drag a "Sentiment Impact Weight" slider to see real-time downstream effects.
 
-**Core Constraints & Requirements:**
-1. **Cross-Component Sensitivity**: The system must explicitly and visually trace how a change in market sentiment shifts the Base WACC (Weighted Average Cost of Capital) and Terminal Growth Rate, ultimately altering the Intrinsic Value.
-2. **Interactive UI**: Users must be able to adjust individual source weights (Reddit vs. Twitter vs. Financial Journals) and a global "Sentiment Impact" weight.
-3. **Real-World Application**: The app must answer the rubric question, *"How would a professional use this?"* by including a Scenario Stress Tester.
-4. **Transparency**: The app must transparently display the DCF formula and explicitly declare system limitations and AI usage.
+### 2. Research (R) & Ideate (I)
+Before writing any code, extensive research was conducted on the existing workspace infrastructure by analyzing `dcf-valuation.jsx` (Project 1) and `project-2` (Sentiment Analyzer). I ideated the architecture into three distinct user-facing pages:
+1. **Macro Dashboard**: A professional entry point.
+2. **Integrated Pipeline**: The crown jewel, a 3-step dashboard (Sentiment Signals -> Integration Engine -> Valuation Outputs).
+3. **Scenario Stress Tester**: The "own idea" component, allowing professional simulation of macroeconomic shocks.
 
-**Prompting Strategy:** 
-The initial prompting focused on defining the exact data structures and the mathematical pipeline: *"Build a Next.js App Router application where an LLM fetches both financial data and sentiment sources, and build a 3-step UI pipeline: Base Assumptions -> Sentiment Modifier -> Effective Assumptions -> Valuation Outputs."*
+### 3. Validate (V)
+Validation was performed iteratively at every step:
+- **Math Validation**: Cross-checked the DCF outputs (`Enterprise Value = PV(FCF) + PV(Terminal)`).
+- **Integration Validation**: Tested the rippling logic. Adjusted the "Sentiment Impact" slider to 100% and verified that a negative sentiment score successfully drove the Effective WACC *up* (increasing risk).
 
----
+### 4. `/driver:evolve` (Execute / Evolve)
+During the execution phase, I utilized `/driver:evolve` to iterate on the initial design. The AI successfully scaffolded the Next.js App Router, but the UI was initially too basic. I explicitly prompted the AI to *evolve* the Analyze page by breaking out the Sentiment Score into three specific source sliders (Reddit, X/Twitter, Financial Journals) and re-introducing the PV FCF formula strip from Project 1. This evolution explicitly achieved the rubric's "Excellent" criteria by "showing the math".
 
-## 2. Research (R)
-Before writing any code, extensive research was conducted on the existing workspace infrastructure:
-1. **Analyzed `dcf-valuation.jsx` (Project 1)**: Extracted the pure mathematical DCF logic, the 2D Sensitivity Matrix generation, and the PV (Present Value) formulas.
-2. **Analyzed `project-2` (Sentiment Analyzer)**: Reviewed how sentiment data was fetched, scored, and visualized using UI components like `recharts` and `lucide-react`.
-3. **Framework Selection**: Rather than hacking the two projects together, research concluded that initializing a completely new Next.js 16 (App Router) project (`capstone/`) with Tailwind CSS v4 was the most stable and professional approach to handle the complex state management required for the integration pipeline.
+### 5. `/driver:reflect` (Reflect)
+Using `/driver:reflect`, I analyzed the final architecture against the rubric. The explicit "Integration Engine" UI makes it incredibly easy to demonstrate the cross-component sensitivity required for the final video presentation. 
 
----
-
-## 3. Ideate (I)
-With the research complete, the architecture of the application was ideated into three distinct user-facing pages and two robust backend engines:
-
-### Backend Data Engines (`src/lib/`)
-1. **`sentimentEngine.ts`**: Designed a dynamic prompt for the Anthropic Claude API to act as a unified data broker. Instead of relying on unreliable scraping, Claude simulates fetching real-time financial fundamentals alongside granular sentiment data mapped to specific sources (Reddit, X/Twitter, News).
-2. **`valuationEngine.ts`**: Engineered the mathematical bridge. This engine takes the effective inputs (Base Inputs + Sentiment Adjustments) and calculates the PV of Free Cash Flows, PV of Terminal Value, Enterprise Value, Equity Value, and the final Intrinsic Value per share.
-
-### Frontend Architecture (`src/app/`)
-1. **Macro Dashboard (`/`)**: A professional entry point featuring a market overview and explicit, rubric-required warnings about system limitations (data quality, compounding errors).
-2. **Integrated Pipeline (`/analyze`)**: The crown jewel of the application. Ideated as a 3-step dashboard:
-   - *Step 1: Sentiment Signals*: Displays the weighted public sentiment score across user-adjustable sources.
-   - *Step 2: Integration Engine*: Visualizes the exact WACC/Growth adjustments driven by the sentiment score.
-   - *Step 3: Valuation Outputs*: Displays the DCF formula strip and the 2D Sensitivity Analysis matrix.
-3. **Scenario Stress Tester (`/stress-test`)**: The "own idea" component. Allows a professional to simulate massive macroeconomic shocks (e.g., Recession, Inflation) and observe the ripple effects across both sentiment and fundamental valuation.
-
----
-
-## 4. Validate (V)
-Validation was performed iteratively at every step of the development process:
-- **Math Validation**: Cross-checked the DCF outputs. Verified that `Enterprise Value = PV(FCF) + PV(Terminal)` and `Equity Value = EV + Cash - Debt`.
-- **Integration Validation**: Tested the rippling logic. Adjusted the "Sentiment Impact" slider to 100% and verified that a negative sentiment score successfully drove the Effective WACC *up* (increasing risk) and drove the Growth Rate *down*, subsequently lowering the Intrinsic Value.
-- **UI/UX Validation**: Ensured that the 2D Sensitivity Table dynamically re-rendered and updated its heat-mapping colors (Green for undervalued, Red for overvalued) instantaneously as sliders were moved.
-- **Rubric Validation**: Verified that all mandatory rubric items (AI Disclosures, DRIVER documentation, specific warning texts) were present and prominently displayed.
-
----
-
-## 5. Execute (E)
-The actual coding phase involved rapid, iterative execution using the AI coding assistant:
-1. Bootstrapped `create-next-app` and configured Tailwind CSS for a premium, dark-mode glassmorphism aesthetic.
-2. Executed the creation of the backend engines, carefully handling TypeScript interfaces for the API responses.
-3. Built the complex state-management logic in `page.tsx` for the Integration Pipeline, handling multiple interconnected sliders and dynamic Recharts generation.
-4. Resolved several edge-case bugs, including escaping JSX characters (`->` to `&gt;`) and fixing invalid import references from the `lucide-react` library.
-5. Pushed the finalized, polished repository directly to GitHub.
-
----
-
-## 6. Reflect (R)
-The CapstoneIQ project successfully demonstrates the pinnacle of what an Integrated Finance Application should be. 
-
-By applying the DRIVER methodology, the final product is not just a collection of scripts, but a cohesive platform. The most challenging aspect was ensuring transparency—making sure the user understands *exactly* how a Reddit post mathematically alters the Weighted Average Cost of Capital. By building the explicit "Integration Engine" UI and the interactive formula strip, that challenge was met. 
-
-The inclusion of the Stress Tester elevates the project from an academic exercise to a tool that a professional analyst could genuinely use for hypothesis generation and scenario due diligence. The project comfortably exceeds the criteria for the "Excellent" grading tier.
+However, reflection also identified the system's core limitation: relying on a probabilistic LLM (Claude) for both the financial data and the sentiment score means the final deterministic DCF output is heavily biased by the LLM's hallucination potential. The system serves as a brilliant demonstration of a *pipeline*, but is not fit for certified fundamental analysis.

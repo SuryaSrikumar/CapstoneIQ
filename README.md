@@ -1,13 +1,14 @@
 # CapstoneIQ: Sentiment-Enhanced Valuation Pipeline
 
-CapstoneIQ is the culmination of Project 1 (Valuation Engine) and Project 2 (Sentiment Analyzer) into a unified, integrated finance application. It demonstrates how subjective market signals (sentiment) can mathematically drive fundamental valuation models (DCF).
+## Project Description
+CapstoneIQ is the culmination of Project 1 (Valuation Engine) and Project 2 (Sentiment Analyzer) into a unified, integrated finance application. It demonstrates how subjective market signals (sentiment) can mathematically drive fundamental valuation models (DCF). The system provides a highly interactive "Integration Engine" where users can visualize how a shift in public sentiment across various sources directly modifies a company's Cost of Capital (WACC) and Terminal Growth Rate, ultimately altering its Intrinsic Value.
 
 ## Project Goals
 1. **Integrated Pipeline (Pattern B)**: Establish a clear data flow where the output of the Sentiment Analyzer acts as a direct modifier to the inputs of the Valuation Engine.
 2. **Cross-Component Sensitivity**: Allow users to explicitly trace how adjusting the "Sentiment Impact Weight" alters the effective WACC and Growth Rate, ultimately changing the Intrinsic Value per share.
-3. **Scenario Testing**: Introduce a Scenario Stress Tester to evaluate the pipeline under massive macroeconomic shocks (e.g., Recession, High Inflation).
+3. **Scenario Testing**: Introduce a Scenario Stress Tester to evaluate the pipeline under massive macroeconomic shocks (e.g., Recession, High Inflation), proving how a professional would utilize the system for due diligence.
 
-## Instructions for Running the Application
+## Instructions for running the application
 
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -16,24 +17,32 @@ CapstoneIQ is the culmination of Project 1 (Valuation Engine) and Project 2 (Sen
 
 ### Setup Steps
 1. Navigate to the project directory:
-   \`\`\`bash
+   ```bash
    cd capstone
-   \`\`\`
+   ```
 2. Install dependencies:
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 3. Run the development server:
-   \`\`\`bash
+   ```bash
    npm run dev
-   \`\`\`
-4. Open your browser and navigate to \`http://localhost:3000\`.
-5. Navigate to the **Valuation Engine** or **Stress Tester** tabs, enter a valid stock ticker (e.g., \`AAPL\`), and paste your Anthropic API Key into the top configuration bar.
+   ```
+4. Open your browser and navigate to `http://localhost:3000`.
+5. Navigate to the **Valuation Engine** or **Stress Tester** tabs, enter a valid stock ticker (e.g., `AAPL`), and paste your Anthropic API Key into the top configuration bar.
 
-## Data Sources
-- **Financial Data**: Baseline financial inputs (FCF, WACC, Beta) and Analyst Targets are fetched dynamically via an LLM agent simulation.
-- **Sentiment Data**: Market sentiment scores (-1.0 to 1.0) and key drivers are simulated in real-time based on the provided ticker.
+## AI usage disclosure and reflection
 
-## Included Documentation
-- \`AI_Disclosure.md\`: Detailed reflection on the use of Generative AI tools in building this application.
-- \`DRIVER_documentation.md\`: A breakdown of how the DRIVER methodology was utilized throughout the development lifecycle.
+### Tools Used
+Throughout the development of CapstoneIQ, I utilized the **Antigravity (Gemini 3.1 Pro)** AI agent (acting as an autonomous pair programmer) and the **Anthropic Claude API** (acting as the backend data simulator). I also utilized the **DRIVER Plugin** methodology to structure the AI's workflow.
+
+### Specific AI Contributions
+1. **Architecture & Scaffolding**: The AI agent successfully executed the `npx create-next-app` command and configured Tailwind CSS with custom Google Fonts.
+2. **Logic Porting**: The AI seamlessly ported the Vanilla React logic from `dcf-valuation.jsx` into a modular, type-safe Next.js environment (`src/lib/valuationEngine.ts`).
+3. **Integration Design**: When prompted to ensure the project met the "Excellent" tier of the grading rubric, the AI designed the "Cross-Component Integration Engine" UI, which explicitly exposes the underlying math, making it easy to explain the data flow during the video presentation.
+4. **Data Generation**: The application utilizes the **Anthropic API (Claude)** dynamically. Rather than building a backend scraper, the app prompts Claude to act as a financial data API, extracting base financial metrics and current market sentiment in a single JSON payload.
+
+### Reflection & Limitations
+Using an agentic AI assistant allowed me to rapidly build a highly polished, professional-grade interface that effectively visualizes complex data flows. The hardest part was ensuring the integration was explicit—rather than just "magic" happening behind the scenes, the AI helped me build a UI that *shows the work*, which is exactly what a professional analyst would require for due diligence.
+
+However, relying on AI for the data back-end introduces significant limitations. Because the financial and sentiment data is generated by an LLM (Claude) via prompt engineering rather than pulled from a verified Bloomberg or SEC database, the data is subject to hallucination. Furthermore, combining a deterministic system (DCF math) with a probabilistic system (LLM sentiment analysis) means the final Intrinsic Value carries the uncertainty and bias inherent in the LLM. It is strictly for educational demonstration of the *pipeline*, not for actual financial advisory.
