@@ -1,5 +1,6 @@
 # CapstoneIQ: Sentiment-Enhanced Valuation Pipeline
-
+https://open.substack.com/pub/suryasrikumar/p/capstoneiq?r=2htl3i&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true
+https://www.youtube.com/watch?v=5Sl6VpIXhsI
 ## Project Description
 CapstoneIQ is the culmination of Project 1 (Valuation Engine) and Project 2 (Sentiment Analyzer) into a unified, integrated finance application. It demonstrates how subjective market signals (sentiment) can mathematically drive fundamental valuation models (DCF). The system provides a highly interactive "Integration Engine" where users can visualize how a shift in public sentiment across various sources directly modifies a company's Cost of Capital (WACC) and Terminal Growth Rate, ultimately altering its Intrinsic Value.
 
